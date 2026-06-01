@@ -275,7 +275,7 @@ layers:
   - '&mkp LCLK'
   - '&mkp RCLK'
   - '&mkp MCLK'
-  - {t: BASE, type: held}
+  - {type: held}
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
