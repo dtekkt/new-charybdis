@@ -3,9 +3,8 @@
  *
  * SPDX-License-Identifier: MIT
  */
-
-#include <dt-bindings/zmk/input_transform.h>
-#include "charybdis.dtsi"
+ 
+ #include "charybdis.dtsi"
 
 &default_transform {
     col-offset = <6>;
@@ -21,6 +20,8 @@
 		, <&pro_micro 8 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
 		;
 };
+
+
 
 // trackball bus
 &pinctrl {
@@ -52,29 +53,19 @@
 
     trackball: trackball@0 {
         status = "okay";
-        compatible = "pixart,pmw3610-alt";
-        reg = <0>;
+        compatible = "pixart,pmw3610";
+         reg = <0>;
         spi-max-frequency = <2000000>;
         irq-gpios = <&gpio0 6 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>;
-
-        /* This will now parse perfectly to its definition number */
-        evt-type = <INPUT_EV_REL>; 
-
-        /* badjeff's native orientation transformations */
-        swap-xy; 
-        invert-x;
+        scroll-layers = <4>;
+        snipe-layers = <3>;
+      // automouse-layer = <3>;
     };
 };
 
-/* ── WIRELESS INPUT RELAY PIPELINE ── */
 / {
-    trackball_peripheral: trackball_peripheral {
-        compatible = "zmk,virtual-input";
-    };
-
-    trackball_relay: trackball_relay {
-        compatible = "zmk,split-peripheral-input-relay";
-        device = <&trackball>;
-        relay-channel = <1>;
-    };
+    trackball_listener {
+        compatible = "zmk,input-listener";
+                device = <&trackball>;
+                    };
 };
