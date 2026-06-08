@@ -54,10 +54,13 @@
      *   scroll-layers = <SCROLL_LAYER>;
      *   automouse-layer = <MOUSE_LAYER>;
      */
-    trackball_listener: trackball_listener {
-        compatible = "zmk,input-listener";
-        device = <&trackball_central>;
-    };
+trackball_listener: trackball_listener {
+    compatible = "zmk,input-listener";
+    device = <&trackball_central>;
+    scroll-layers = <4>;
+    snipe-layers = <3>;
+    // automouse-layer = <3>;
+};
 };
 
 /* ── SH1106 1.3" OLED on pro_micro_i2c ────────────────────────────────── */
