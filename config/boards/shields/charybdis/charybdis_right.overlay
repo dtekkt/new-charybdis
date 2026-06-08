@@ -56,8 +56,10 @@
         spi-max-frequency = <2000000>;
         irq-gpios = <&gpio0 6 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>;
 
-        /* Hardcoded to 0x02 (Relative Events) to bypass missing header evaluations */
-        evt-type = <0x02>; 
+        /* Event Configuration Requirements */
+        evt-type = <0x02>;       /* INPUT_EV_REL */
+        x-input-code = <0x00>;   /* INPUT_REL_X */
+        y-input-code = <0x01>;   /* INPUT_REL_Y */
 
         /* badjeff's native orientation transformations */
         swap-xy; 
