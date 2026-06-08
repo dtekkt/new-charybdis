@@ -6,7 +6,7 @@
  * drives a Sinowealth SH1106 1.3" OLED (128×64) via pro_micro_i2c.
  *
  * Wiring (Nice!Nano v2 → OLED):
- *   VCC → 3.3 V   GND → GND   SDA → D2 (P0.17)   SCL → D3 (P0.20)
+ * VCC → 3.3 V   GND → GND   SDA → D2 (P0.17)   SCL → D3 (P0.20)
  */
 
 /* Pull in the shared keyboard matrix, kscan, physical layout and keymap
@@ -38,16 +38,22 @@
         device = <&trackball_central>;
     };
 
-/* ── PATH-BASED OVERRIDE FOR THE UNLABELED LISTENER ── */
+    /* ── PATH-BASED OVERRIDE FOR THE UNLABELED LISTENER ── */
     trackball_listener {
+        compatible = "zmk,input-listener"; // Added badjeff's explicit listener compatibility tracking
         device = <&trackball_central>;
         
-        /* ── CENTRAL LAYER-TRACKING INPUT PROCESSORS ── */
+        /* ── CENTRAL LAYER-TRACKING INPUT PROCESSORS VIA BADJEFF ── */
         input-processors 
-            = <&zip_scroll_scaler 2 1>    /* Standard behavior */
+            = <&zip_xy_scaler 1 1>        /* Badjeff's native coordinate normalization */
             , <&zip_scroll_layers 4>      /* Converts trackball to scroll wheel on layer 4 */
             , <&zip_snipe_layers 3>;       /* Alters trackball DPI sensitivity on layer 3 */
     };
+};
+
+/* ── FORCE DISABLE INHERITED HARDWARE TRACKING ON THE DONGLE HUB ── */
+&trackball {
+    status = "disabled";
 };
 
 /* ── STRIP MATRIX REQUIREMENTS BUT KEEP NODE LOGIC FOR ORDINALS ── */
