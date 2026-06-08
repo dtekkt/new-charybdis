@@ -7,6 +7,7 @@
  */
 
 #include "charybdis.dtsi"
+#include "charybdis_trackball_processors.dtsi"
 
 / {
     chosen {
@@ -22,21 +23,20 @@
         events = <0>;
     };
 
-    /* ─── ADDED TRACKBALL ROUTER NODES HERE ─── */
-    trackball_listener {
-        compatible = "zmk,input-listener";
-        device = <&trackball_split>;
+    /* ── RECEIVE TRACKBALL CHANNELS FROM PERIPHERAL OVER THE AIR ── */
+    input_split_0: input_split_0@0 {
+        compatible = "zmk,input-split";
+        status = "okay";
+        reg = <0 1>;  /* address 0, size 1 */
     };
 
-    split_inputs {
-        #address-cells = <1>;
-        #size-cells = <0>;
-        trackball_split: trackball@0 {
-            compatible = "zmk,input-split";
-            reg = <0>;
-        };
+    input_split_listener: input_split_listener {
+        compatible = "zmk,input-listener";
+        status = "okay";
+        device = <&input_split_0>;
+
+        CHARYBDIS_TRACKBALL_PROCESSORS
     };
-    /* ───────────────────────────────────────── */
 };
 
 /* ── SHUT DOWN THE PHYSICAL SPI MASTER ON THE DONGLE CLEANLY ── */
