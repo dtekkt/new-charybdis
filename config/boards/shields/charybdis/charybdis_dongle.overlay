@@ -26,6 +26,10 @@
         events = <0>;
     };
 
+/* ── REMOVE THE DIODE DIRECTION LEAKING FROM THE DTSI ── */
+        /delete-property/ diode-direction;
+    };
+
     trackball_central: trackball_central {
         compatible = "zmk,virtual-input";
     };
