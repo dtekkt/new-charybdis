@@ -5,11 +5,11 @@
 
 #define CHARYBDIS_TRACKBALL_PROCESSORS \
     scroll { \
-        layers = <5>; \
+        layers = <4>; \
         input-processors = <&zip_xy_transform (INPUT_TRANSFORM_Y_INVERT)>, <&zip_xy_scaler 1 40>, <&zip_xy_to_scroll_mapper>; \
     }; \
     \
     move { \
-        layers = <0 1 2 3 4>; \
+        layers = <0 1 2 3>; \
         input-processors = <&zip_xy_scaler 3 2>; \
     };
