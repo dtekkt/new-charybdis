@@ -38,9 +38,15 @@
         device = <&trackball_central>;
     };
 
-    /* ── PATH-BASED OVERRIDE FOR THE UNLABELED LISTENER ── */
+/* ── PATH-BASED OVERRIDE FOR THE UNLABELED LISTENER ── */
     trackball_listener {
         device = <&trackball_central>;
+        
+        /* ── CENTRAL LAYER-TRACKING INPUT PROCESSORS ── */
+        input-processors 
+            = <&zip_scroll_scaler 2 1>    /* Standard behavior */
+            , <&zip_scroll_layers 4>      /* Converts trackball to scroll wheel on layer 4 */
+            , <&zip_snipe_layers 3>;       /* Alters trackball DPI sensitivity on layer 3 */
     };
 };
 
