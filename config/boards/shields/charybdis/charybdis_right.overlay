@@ -4,7 +4,6 @@
  * SPDX-License-Identifier: MIT
  */
 
-#include <dt-bindings/zmk/input_transform.h>
 #include "charybdis.dtsi"
 
 &default_transform {
@@ -57,8 +56,8 @@
         spi-max-frequency = <2000000>;
         irq-gpios = <&gpio0 6 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>;
 
-        /* This will now parse perfectly to its definition number */
-        evt-type = <INPUT_EV_REL>; 
+        /* Hardcoded to 0x02 (Relative Events) to bypass missing header evaluations */
+        evt-type = <0x02>; 
 
         /* badjeff's native orientation transformations */
         swap-xy; 
