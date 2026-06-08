@@ -40,7 +40,7 @@
 
     /* ── PATH-BASED OVERRIDE FOR THE UNLABELED LISTENER ── */
     trackball_listener {
-        compatible = "zmk,input-listener"; // Added badjeff's explicit listener compatibility tracking
+        compatible = "zmk,input-listener";
         device = <&trackball_central>;
         
         /* ── CENTRAL LAYER-TRACKING INPUT PROCESSORS VIA BADJEFF ── */
@@ -51,9 +51,9 @@
     };
 };
 
-/* ── FORCE DISABLE INHERITED HARDWARE TRACKING ON THE DONGLE HUB ── */
-&trackball {
-    status = "disabled";
+/* ── TARGET VIA PATH ADDRESS INSTEAD OF UNRESOLVED LABEL REFERENCE ── */
+&spi0 {
+    status = "disabled"; /* Shuts down the physical master SPI block on the dongle cleanly */
 };
 
 /* ── STRIP MATRIX REQUIREMENTS BUT KEEP NODE LOGIC FOR ORDINALS ── */
@@ -80,7 +80,6 @@
         };
     };	
 }; 
-
 
 &pro_micro_i2c {
 	status = "okay";
