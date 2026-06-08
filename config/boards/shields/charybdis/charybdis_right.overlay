@@ -53,14 +53,16 @@
 
     trackball: trackball@0 {
         status = "okay";
-        compatible = "pixart,pmw3610";
+        compatible = "pixart,pmw3610-alt"; /* 1. Changed to badjeff's -alt identifier */
         reg = <0>;
         spi-max-frequency = <2000000>;
         irq-gpios = <&gpio0 6 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>;
+
+        /* 2. Added badjeff's native hardware orientation shifts right here */
+        swap-xy; 
+        invert-x;
     };
 };
-
-
 
 / {
     trackball_peripheral: trackball_peripheral {
