@@ -30,12 +30,16 @@
         reg = <0 1>;  /* address 0, size 1 */
     };
 
-    input_split_listener: input_split_listener {
+     input_split_listener: input_split_listener {
         compatible = "zmk,input-listener";
         status = "okay";
         device = <&input_split_0>;
 
+        /* 1. Pulls in your scroll/move sub-nodes from the processors file */
         CHARYBDIS_TRACKBALL_PROCESSORS
+
+        /* 2. ADD THIS LINE: Acts as the baseline bridge for the processing engine */
+        input-processors = <&zip_xy_scaler 1 1>;
     };
 };
 
