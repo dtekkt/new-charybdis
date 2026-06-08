@@ -19,7 +19,7 @@
         zmk,kscan = &mock_kscan;
         zephyr,display = &oled;
     };
-    mock_kscan: kscan_1 {
+    mock_kscan: kscan {
         compatible = "zmk,kscan-mock";
         columns = <0>;
         rows = <0>;
