@@ -1,0 +1,7 @@
+file_format: "1"
+id: charybdis_dongle
+name: Charybdis Dongle (Nice!Nano v2 + SH1106 1.3" OLED, central)
+type: shield
+url: https://github.com/dtekkt/zmk-for-charybdis
+requires:
+  - pro_micro_i2c

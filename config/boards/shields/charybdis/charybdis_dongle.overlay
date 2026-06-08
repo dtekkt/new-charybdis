@@ -1,0 +1,81 @@
+/*
+ * charybdis_dongle.overlay  —  USB central
+ *
+ * Receives PMW3610 trackball events relayed from the right peripheral on
+ * channel 1, re-emits them through a virtual-input + input-listener, and
+ * drives a Sinowealth SH1106 1.3" OLED (128×64) via pro_micro_i2c.
+ *
+ * Wiring (Nice!Nano v2 → OLED):
+ *   VCC → 3.3 V   GND → GND   SDA → D2 (P0.17)   SCL → D3 (P0.20)
+ */
+
+/ {
+    /* ── Stub KSCAN (dongle has no physical keys) ─────────────────────── */
+    kscan0: kscan {
+        compatible = "zmk,kscan-gpio-direct";
+        input-gpios;
+    };
+
+    chosen {
+        zmk,kscan      = &kscan0;
+        zephyr,display = &oled;
+    };
+
+    /*
+     * Virtual input device on the central side.
+     * ZMK's input split layer populates this with events received from the
+     * right peripheral on relay-channel 1.
+     */
+    trackball_central: trackball_central {
+        compatible = "zmk,virtual-input";
+    };
+
+    /*
+     * Central-side relay config: maps channel-1 incoming events to the
+     * trackball_central virtual device.
+     * relay-channel MUST match charybdis_right.overlay.
+     */
+    trackball_relay_config: trackball_relay_config {
+        compatible = "zmk,split-peripheral-input-relay";
+        relay-channel = <1>;
+        device = <&trackball_central>;
+    };
+
+    /*
+     * Input listener: translates virtual pointer events into ZMK mouse
+     * movement on the central.
+     *
+     * Add your scroll / snipe input-processors here, exactly as they were
+     * in your original charybdis_right.overlay trackball_listener block.
+     * Example:
+     *
+     *   input-processors = <&zip_xy_scaler 3 2>;
+     *   snipe-layers = <SNIPE_LAYER>;
+     *   scroll-layers = <SCROLL_LAYER>;
+     *   automouse-layer = <MOUSE_LAYER>;
+     */
+    trackball_listener: trackball_listener {
+        compatible = "zmk,input-listener";
+        device = <&trackball_central>;
+    };
+};
+
+/* ── SH1106 1.3" OLED on pro_micro_i2c ────────────────────────────────── */
+&pro_micro_i2c {
+    status = "okay";
+
+    oled: sh1106@3c {
+        compatible = "sinowealth,sh1106";
+        reg = <0x3c>;
+        width = <128>;
+        height = <64>;
+        segment-offset = <2>;   /* SH1106 alignment correction */
+        page-offset = <0>;
+        display-offset = <0>;
+        multiplex-ratio = <63>;
+        segment-remap;
+        com-invdir;
+        com-sequential;
+        prechargep = <0x22>;
+    };
+};
