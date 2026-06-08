@@ -37,14 +37,14 @@
         relay-channel = <1>;
         device = <&trackball_central>;
     };
+
+    /* ── PATH-BASED OVERRIDE FOR THE UNLABELED LISTENER ── */
+    trackball_listener {
+        device = <&trackball_central>;
+    };
 };
 
-/* ── FORCE CRITICAL DONGLE OVERRIDES AT THE ROOT LEVEL ── */
-
-&trackball_listener {
-    device = <&trackball_central>;
-};
-
+/* ── STRIP MATRIX REQUIREMENTS BUT KEEP NODE LOGIC FOR ORDINALS ── */
 &kscan0 {
     /delete-property/ diode-direction;
     /delete-property/ row-gpios;
