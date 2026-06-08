@@ -12,8 +12,8 @@
 / {
     /* ── Stub KSCAN (dongle has no physical keys) ─────────────────────── */
     kscan0: kscan {
-        compatible = "zmk,kscan-gpio-direct";
-        input-gpios;
+        compatible = "zmk,kscan-mock";
+        events = <0>;
     };
 
     chosen {
@@ -57,9 +57,6 @@
 trackball_listener: trackball_listener {
     compatible = "zmk,input-listener";
     device = <&trackball_central>;
-    scroll-layers = <4>;
-    snipe-layers = <3>;
-    // automouse-layer = <3>;
 };
 };
 
