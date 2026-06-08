@@ -19,6 +19,8 @@
         zmk,kscan = &mock_kscan;
         zephyr,display = &oled;
     };
+
+    /* Clean, basic mock scanner definition */
     mock_kscan: kscan {
         compatible = "zmk,kscan-mock";
         columns = <0>;
@@ -35,14 +37,14 @@
         relay-channel = <1>;
         device = <&trackball_central>;
     };
-
-trackball_listener: trackball_listener {
-        compatible = "zmk,input-listener";
-        device = <&trackball_central>; /* <--- Change this line */
-    };
 };
 
-/* ── STRIP THE MATRIX REQUIREMENTS BUT KEEP THE NODE FOR HANDLE REFERENCE ── */
+/* ── FORCE CRITICAL DONGLE OVERRIDES AT THE ROOT LEVEL ── */
+
+&trackball_listener {
+    device = <&trackball_central>;
+};
+
 &kscan0 {
     /delete-property/ diode-direction;
     /delete-property/ row-gpios;
