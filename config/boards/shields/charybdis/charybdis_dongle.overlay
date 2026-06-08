@@ -10,8 +10,7 @@
  */
 
 /* Pull in the shared keyboard matrix, kscan, physical layout and keymap
- * definitions — the same as charybdis_left.overlay and charybdis_right.overlay.
- * This satisfies ZMK_MATRIX_ROWS/COLS and the Studio physical-layout assert. */
+ * definitions — the same as charybdis_left.overlay and charybdis_right.overlay. */
 #include "charybdis.dtsi"
 
 / {
@@ -38,16 +37,11 @@
         device = <&trackball_central>;
     };
 
-    /* ── PATH-BASED OVERRIDE FOR THE UNLABELED LISTENER ── */
+    /* ── CLEAN PASS-THROUGH INPUT LISTENER ── */
     trackball_listener {
         compatible = "zmk,input-listener";
         device = <&trackball_central>;
-        
-        /* ── CENTRAL LAYER-TRACKING INPUT PROCESSORS (PATH MAPPED) ── */
-        input-processors 
-            = <&zmk_input_processor_scaler 1 1>        /* Directly targets core scaling engine */
-            , <&zip_scroll_layers 4>                     /* Handled dynamically by the keymap layer */
-            , <&zip_snipe_layers 3>;                      /* Handled dynamically by the keymap layer */
+        /* No complex processor transformations here; raw packets pass straight to USB */
     };
 };
 
