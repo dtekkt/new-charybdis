@@ -26,10 +26,6 @@
         events = <0>;
     };
 
-/* ── REMOVE THE DIODE DIRECTION LEAKING FROM THE DTSI ── */
-        /delete-property/ diode-direction;
-    };
-
     trackball_central: trackball_central {
         compatible = "zmk,virtual-input";
     };
@@ -46,9 +42,10 @@
     };
 };
 
-/* ── FORCE DISABLE THE PHYSICAL MATRIX TRAILING FROM THE DTSI ── */
+/* ── RE-REFERENCE AND STRIP DOWN THE INHERITED OVERRIDES ── */
 &kscan0 {
     status = "disabled";
+    /delete-property/ diode-direction;
 };
 
 /* ── SH1106 1.3" OLED on pro_micro_i2c ────────────────────────────────── */
