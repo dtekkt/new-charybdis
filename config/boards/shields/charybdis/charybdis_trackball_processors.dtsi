@@ -3,9 +3,6 @@
 #include <dt-bindings/zmk/input_transform.h>
 #include <input/processors.dtsi>
 
-/* Fixes the 'OVERRIDE_LAYER_BIT undeclared' compiler panic */
-#define OVERRIDE_LAYER_BIT(node, prop, idx) BIT(DT_PROP_BY_IDX(node, prop, idx))
-
 #define CHARYBDIS_TRACKBALL_PROCESSORS \
     scroll { \
         compatible = "zmk,input-listener-subnode"; \
