@@ -11,15 +11,6 @@
 #include "charybdis_trackball_processors.dtsi"
 
 / {
-  behaviors {
-        auto_mouse_listener: auto_mouse_listener {
-            compatible = "zmk,input-processor-temp-layer";
-            #input-processor-cells = <2>;
-            
-            /* ── ADD THESE TWO LINES TO SATISFY THE COMPILER LOOP ── */
-            excluded-positions = <>; 
-        };
-    };
 
   chosen {
         zmk,kscan = &mock_kscan;
