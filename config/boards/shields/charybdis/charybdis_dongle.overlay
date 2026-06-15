@@ -11,6 +11,13 @@
 #include "charybdis_trackball_processors.dtsi"
 
 / {
+  behaviors {
+        auto_mouse_listener: auto_mouse_listener {
+            compatible = "zmk,input-processor-temp-layer";
+            #input-processor-cells = <2>;
+            require-prior-idle-ms = <1500>; // 1.5 seconds timeout
+        };
+    };
 
   chosen {
         zmk,kscan = &mock_kscan;
