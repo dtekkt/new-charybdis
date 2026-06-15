@@ -31,29 +31,32 @@
         reg = <0 1>;  /* address 0, size 1 */
     };
 
-    /* ── COMBINED INPUT LISTENER ── */
     input_split_listener: input_split_listener {
         compatible = "zmk,input-listener";
         status = "okay";
         device = <&input_split_0>;
 
-        /* Pulls in your scroll and snipe sub-nodes natively */
+        /* 1. Natively pulls in scroll, snipe, and the initial base move node definitions */
         CHARYBDIS_TRACKBALL_PROCESSORS
 
-        /* Explicitly define the layer 1 & 2 move logic inline */
-        move {
-            compatible = "zmk,input-listener-subnode";
-            layers = <1 2>;
-            input-processors = <&zip_xy_scaler 3 2>; 
-        };
-
-        /* Add the specialized layer 0 automouse behavior node inline */
+        /* 2. Add the specialized layer 0 automouse behavior node as a new child inline */
         move_automouse {
             compatible = "zmk,input-listener-subnode";
             layers = <0>;
             input-processors = <&zip_xy_scaler 3 2>, <&zip_temp_layer 5 500>;
         };
     };
+};
+
+/* ── TARGET SPECIFIC OVERRIDES ── */
+
+/* * Point directly to the nested move node created by CHARYBDIS_TRACKBALL_PROCESSORS.
+ * This extends its properties safely without generating a "duplicate node name" collision.
+ */
+&{/input_split_listener/move} {
+    compatible = "zmk,input-listener-subnode";
+    layers = <1 2>;
+    input-processors = <&zip_xy_scaler 3 2>; 
 };
 
 /* ── SHUT DOWN THE PHYSICAL SPI MASTER ON THE DONGLE CLEANLY ── */
