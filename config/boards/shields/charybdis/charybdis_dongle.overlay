@@ -31,7 +31,8 @@
         reg = <0 1>;  /* address 0, size 1 */
     };
 
-    input_split_listener: input_split_listener {
+    /* CHANGED HERE: Renamed node from input_split_listener to input_listener */
+    input_listener: input_listener {
         compatible = "zmk,input-listener";
         status = "okay";
         device = <&input_split_0>;
