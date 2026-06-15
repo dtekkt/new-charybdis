@@ -18,7 +18,6 @@
             
             /* ── ADD THESE TWO LINES TO SATISFY THE COMPILER LOOP ── */
             excluded-positions = <>; 
-            timeout-ms = <1500>; // Sets the timeout right here in the node
         };
     };
 
