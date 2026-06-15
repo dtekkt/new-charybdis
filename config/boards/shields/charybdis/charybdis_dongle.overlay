@@ -39,7 +39,7 @@
         reg = <0 1>;  /* address 0, size 1 */
     };
 
-     input_split_listener: input_split_listener {
+input_split_listener: input_split_listener {
         compatible = "zmk,input-listener";
         status = "okay";
         device = <&input_split_0>;
@@ -47,12 +47,11 @@
         /* 1. Pulls in your scroll/move sub-nodes from the processors file */
         CHARYBDIS_TRACKBALL_PROCESSORS
 
-        /* 2. ADD THIS LINE: Acts as the baseline bridge for the processing engine */
-move {
-            input-processors = <&zip_xy_scaler 3 2>, <&auto_mouse_listener 2 0>;
+        /* 2. FIXED: Injects the auto-mouse behavior inside the 'move' layer configuration block */
+        move {
+            input-processors = <&zip_xy_scaler 3 2>, <&auto_mouse_listener 1 0>;
         };
     };
-};
 
 /* ── SHUT DOWN THE PHYSICAL SPI MASTER ON THE DONGLE CLEANLY ── */
 &spi0 {
