@@ -6,11 +6,20 @@
  * VCC → 3.3 V   GND → GND   SDA → D2 (P0.17)   SCL → D3 (P0.20)
  */
 
+#include <zephyr/dt-bindings/input/input-event-codes.h>
 #include "charybdis.dtsi"
 #include "charybdis_trackball_processors.dtsi"
 
 / {
-    chosen {
+   behaviors {
+        zip_temp_layer: zip_temp_layer {
+            compatible = "zmk,input-processor-temp-layer";
+            #input-processor-cells = <2>;
+            require-prior-idle-ms = <1500>; // Drops layer 1.5 seconds after trackball stops
+        };
+    }; 
+
+  chosen {
         zmk,kscan = &mock_kscan;
         zephyr,display = &oled;
     };
@@ -39,7 +48,7 @@
         CHARYBDIS_TRACKBALL_PROCESSORS
 
         /* 2. ADD THIS LINE: Acts as the baseline bridge for the processing engine */
-        input-processors = <&zip_xy_scaler 1 1>;
+        input-processors = <&zip_xy_scaler 1 1>, <&zip_temp_layer 1 0>;
     };
 };
 
