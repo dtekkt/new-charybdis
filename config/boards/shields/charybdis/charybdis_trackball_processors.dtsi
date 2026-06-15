@@ -18,12 +18,6 @@
     \
     move { \
         compatible = "zmk,input-listener-subnode"; \
-        layers = <1 2>; \
-        input-processors = <&zip_xy_scaler 3 2>; \
-    }; \
-    \
-    move_automouse { \
-        compatible = "zmk,input-listener-subnode"; \
-        layers = <0>; \
+        layers = <0 1 2>; \
         input-processors = <&zip_xy_scaler 3 2>, <&zip_temp_layer 5 500>; \
     };
