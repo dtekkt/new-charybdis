@@ -11,13 +11,13 @@
 #include "charybdis_trackball_processors.dtsi"
 
 / {
-   behaviors {
-        zip_temp_layer: zip_temp_layer {
+  behaviors {
+        zip_temp_layer: zip_temp_layer_node {
             compatible = "zmk,input-processor-temp-layer";
             #input-processor-cells = <2>;
-            require-prior-idle-ms = <1500>; // Drops layer 1.5 seconds after trackball stops
+            require-prior-idle-ms = <1500>; 
         };
-    }; 
+    };
 
   chosen {
         zmk,kscan = &mock_kscan;
