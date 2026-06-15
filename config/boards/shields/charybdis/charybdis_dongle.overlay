@@ -36,27 +36,23 @@
         status = "okay";
         device = <&input_split_0>;
 
-        /* 1. Pulls in your scroll/move sub-nodes from the processors file */
+        /* 1. Pulls in your scroll, snipe, and default move sub-nodes natively */
         CHARYBDIS_TRACKBALL_PROCESSORS
     };
 };
 
 /* ── TARGET SPECIFIC NODE MODIFIER ── */
 &input_split_listener {
+    /* 1. Restrict the default move node to only execute on layers 1 and 2 */
     move {
-        /* 1. Clear out the default <0 1 2> configuration array */
-        /delete-property/ layers;
-
-        /* 2. Bind this auto-layer node execution strictly to Layer 0 */
-        layers = <0>;
-        input-processors = <&zip_xy_scaler 3 2>, <&zip_temp_layer 5 500>;
+        layers = <1 2>;
     };
 
-    /* 3. Fallback tracking logic for middle layers (No layer switching) */
-    move_fallback {
+    /* 2. Add an explicit new listener sub-node specifically for Layer 0 with automouse */
+    move_automouse {
         compatible = "zmk,input-listener-subnode";
-        layers = <1 2>;
-        input-processors = <&zip_xy_scaler 3 2>;
+        layers = <0>;
+        input-processors = <&zip_xy_scaler 3 2>, <&zip_temp_layer 5 500>;
     };
 };
 
