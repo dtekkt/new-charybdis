@@ -81,7 +81,7 @@ layers:
   - ↑
   - End
   - INSERT
-  - {t: ▽, type: trans}
+  - '&msc SCRL_UP'
   - CAPSLOCK
   - {t: ▽, type: trans}
   - PREVIOUS
@@ -93,7 +93,7 @@ layers:
   - ↓
   - →
   - CONTEXT MENU
-  - {t: ▽, type: trans}
+  - '&msc SCRL_DOWN'
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
   - {t: ▽, type: trans}
