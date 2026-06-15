@@ -43,12 +43,13 @@
 
 /* ── TARGET SPECIFIC NODE MODIFIER ── */
 &input_split_listener {
-    /* 1. Restrict the default move node to only execute on layers 1 and 2 */
+    /* 1. Explicitly redefine move to only handle layers 1 and 2, keeping original scaling */
     move {
         layers = <1 2>;
+        input-processors = <&zip_xy_scaler 3 2>; 
     };
 
-    /* 2. Add an explicit new listener sub-node specifically for Layer 0 with automouse */
+    /* 2. Add the specialized layer 0 automouse behavior node with its own properties */
     move_automouse {
         compatible = "zmk,input-listener-subnode";
         layers = <0>;
