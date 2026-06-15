@@ -5,25 +5,21 @@
 
 #define CHARYBDIS_TRACKBALL_PROCESSORS \
     scroll { \
-        compatible = "zmk,input-listener-subnode"; \
         layers = <4>; \
         input-processors = <&zip_xy_transform (INPUT_TRANSFORM_Y_INVERT)>, <&zip_xy_scaler 1 40>, <&zip_xy_to_scroll_mapper>; \
     }; \
     \
     snipe { \
-        compatible = "zmk,input-listener-subnode"; \
         layers = <3>; \
         input-processors = <&zip_xy_scaler 1 3>; \
     }; \
     \
     move_base { \
-        compatible = "zmk,input-listener-subnode"; \
         layers = <0>; \
         input-processors = <&zip_xy_scaler 3 2>, <&zip_temp_layer 5 500>; \
     }; \
     \
     move_layers { \
-        compatible = "zmk,input-listener-subnode"; \
         layers = <1 2>; \
         input-processors = <&zip_xy_scaler 3 2>; \
     };
