@@ -52,6 +52,7 @@ input_split_listener: input_split_listener {
             input-processors = <&zip_xy_scaler 3 2>, <&auto_mouse_listener 1 0>;
         };
     };
+};
 
 /* ── SHUT DOWN THE PHYSICAL SPI MASTER ON THE DONGLE CLEANLY ── */
 &spi0 {
