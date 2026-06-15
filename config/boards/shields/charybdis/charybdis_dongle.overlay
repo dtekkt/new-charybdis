@@ -11,14 +11,6 @@
 #include "charybdis_trackball_processors.dtsi"
 
 / {
-    behaviors {
-        auto_mouse_listener: auto_mouse_listener {
-            compatible = "zmk,input-processor-temp-layer";
-            #input-processor-cells = <2>;
-            excluded-positions = <0>; /* Keep this line to prevent compilation failure */
-        };
-    };
-
     chosen {
         zmk,kscan = &mock_kscan;
         zephyr,display = &oled;
@@ -49,10 +41,11 @@
     };
 };
 
-/* ── TARGET SPECIFIC NODE MODIFIER (Fixes the duplicate error) ── */
+/* ── TARGET SPECIFIC NODE MODIFIER (Altered to use native ZMK upstream processor logic) ── */
 &input_split_listener {
     move {
-        input-processors = <&zip_xy_scaler 3 2>, <&auto_mouse_listener 1 0>;
+        /* Targets Layer 1 with a 1000ms (1 second) idle timeout window */
+        input-processors = <&zip_xy_scaler 3 2>, <&zip_temp_layer 1 1000>;
     };
 };
 
