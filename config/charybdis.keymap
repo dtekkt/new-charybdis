@@ -1,3 +1,7 @@
+#ifndef OVERRIDE_LAYER_BIT
+#define OVERRIDE_LAYER_BIT(node, prop, idx) BIT(DT_PROP_BY_IDX(node, prop, idx))
+#endif
+
 #include "keys_de.h"
 #include <dt-bindings/zmk/mouse.h>
 #include <behaviors.dtsi>
