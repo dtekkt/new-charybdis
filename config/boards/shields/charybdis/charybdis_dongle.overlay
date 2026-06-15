@@ -11,7 +11,7 @@
 #include "charybdis_trackball_processors.dtsi"
 
 / {
-  behaviors {
+    behaviors {
         auto_mouse_listener: auto_mouse_listener {
             compatible = "zmk,input-processor-temp-layer";
             #input-processor-cells = <2>;
@@ -19,7 +19,7 @@
         };
     };
 
-  chosen {
+    chosen {
         zmk,kscan = &mock_kscan;
         zephyr,display = &oled;
     };
@@ -39,18 +39,20 @@
         reg = <0 1>;  /* address 0, size 1 */
     };
 
-input_split_listener: input_split_listener {
+    input_split_listener: input_split_listener {
         compatible = "zmk,input-listener";
         status = "okay";
         device = <&input_split_0>;
 
         /* 1. Pulls in your scroll/move sub-nodes from the processors file */
         CHARYBDIS_TRACKBALL_PROCESSORS
+    };
+};
 
-        /* 2. FIXED: Injects the auto-mouse behavior inside the 'move' layer configuration block */
-        move {
-            input-processors = <&zip_xy_scaler 3 2>, <&auto_mouse_listener 1 0>;
-        };
+/* ── TARGET SPECIFIC NODE MODIFIER (Fixes the duplicate error) ── */
+&input_split_listener {
+    move {
+        input-processors = <&zip_xy_scaler 3 2>, <&auto_mouse_listener 1 0>;
     };
 };
 
