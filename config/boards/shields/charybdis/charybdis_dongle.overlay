@@ -31,29 +31,28 @@
         reg = <0 1>;  /* address 0, size 1 */
     };
 
+    /* ── COMBINED INPUT LISTENER ── */
     input_split_listener: input_split_listener {
         compatible = "zmk,input-listener";
         status = "okay";
         device = <&input_split_0>;
 
-        /* 1. Pulls in your scroll, snipe, and default move sub-nodes natively */
+        /* Pulls in your scroll and snipe sub-nodes natively */
         CHARYBDIS_TRACKBALL_PROCESSORS
-    };
-};
 
-/* ── TARGET SPECIFIC NODE MODIFIER ── */
-&input_split_listener {
-    /* 1. Explicitly redefine move to only handle layers 1 and 2, keeping original scaling */
-    move {
-        layers = <1 2>;
-        input-processors = <&zip_xy_scaler 3 2>; 
-    };
+        /* Explicitly define the layer 1 & 2 move logic inline */
+        move {
+            compatible = "zmk,input-listener-subnode";
+            layers = <1 2>;
+            input-processors = <&zip_xy_scaler 3 2>; 
+        };
 
-    /* 2. Add the specialized layer 0 automouse behavior node with its own properties */
-    move_automouse {
-        compatible = "zmk,input-listener-subnode";
-        layers = <0>;
-        input-processors = <&zip_xy_scaler 3 2>, <&zip_temp_layer 5 500>;
+        /* Add the specialized layer 0 automouse behavior node inline */
+        move_automouse {
+            compatible = "zmk,input-listener-subnode";
+            layers = <0>;
+            input-processors = <&zip_xy_scaler 3 2>, <&zip_temp_layer 5 500>;
+        };
     };
 };
 
