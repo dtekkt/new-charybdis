@@ -48,7 +48,7 @@
         CHARYBDIS_TRACKBALL_PROCESSORS
 
         /* 2. ADD THIS LINE: Acts as the baseline bridge for the processing engine */
-        input-processors = <&zip_xy_scaler 1 1>, <&auto_mouse_listener 2 0>;
+        input-processors = <&zip_xy_scaler 1 1>, <&auto_mouse_listener 1 0>;
     };
 };
 
