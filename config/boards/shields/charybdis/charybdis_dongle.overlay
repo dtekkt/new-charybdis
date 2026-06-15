@@ -7,7 +7,8 @@
  */
 
 #include <zephyr/dt-bindings/input/input-event-codes.h>
-#include <dt-bindings/zmk/input_transform.h> // Required for INPUT_TRANSFORM_Y_INVERT
+#include <dt-bindings/zmk/input_transform.h> 
+#include <input/processors.dtsi> // ◄ CRITICAL: Defines the zip_xy references
 #include "charybdis.dtsi"
 
 / {
@@ -31,13 +32,13 @@
         reg = <0 1>;  /* address 0, size 1 */
     };
 
-    /* ── FULLY EXPLICIT INPUT LISTENER (Bypasses all Macro Compilation Errors) ── */
+    /* ── FULLY EXPLICIT INPUT LISTENER ── */
     input_split_listener: input_split_listener {
         compatible = "zmk,input-listener";
         status = "okay";
         device = <&input_split_0>;
 
-        /* 1. Matches your exact macro settings, but limits standard execution to layers 1 and 2 */
+        /* 1. Standard execution restricted to layers 1 and 2 */
         move {
             compatible = "zmk,input-listener-subnode";
             layers = <1 2>;
